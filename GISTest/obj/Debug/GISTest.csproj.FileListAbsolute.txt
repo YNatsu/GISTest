@@ -1,0 +1,12 @@
+c:\users\ynats\documents\visual studio 2012\Projects\GISTest\GISTest\bin\Debug\GISTest.exe.config
+c:\users\ynats\documents\visual studio 2012\Projects\GISTest\GISTest\bin\Debug\GISTest.exe
+c:\users\ynats\documents\visual studio 2012\Projects\GISTest\GISTest\bin\Debug\GISTest.pdb
+c:\users\ynats\documents\visual studio 2012\Projects\GISTest\GISTest\obj\Debug\GISTest.csprojResolveAssemblyReference.cache
+c:\users\ynats\documents\visual studio 2012\Projects\GISTest\GISTest\obj\Debug\GISTest.Form1.resources
+c:\users\ynats\documents\visual studio 2012\Projects\GISTest\GISTest\obj\Debug\GISTest.Properties.Resources.resources
+c:\users\ynats\documents\visual studio 2012\Projects\GISTest\GISTest\obj\Debug\GISTest.csproj.GenerateResource.Cache
+c:\users\ynats\documents\visual studio 2012\Projects\GISTest\GISTest\obj\Debug\GISTest.exe
+c:\users\ynats\documents\visual studio 2012\Projects\GISTest\GISTest\obj\Debug\GISTest.pdb
+C:\Users\ynats\documents\visual studio 2012\Projects\GISTest\GISTest\bin\Debug\ESRI.ArcGIS.ADF.dll
+C:\Users\ynats\documents\visual studio 2012\Projects\GISTest\GISTest\bin\Debug\ESRI.ArcGIS.ADF.xml
+C:\Users\ynats\documents\visual studio 2012\Projects\GISTest\GISTest\obj\Debug\GISTest.LayerAttrib.resources
