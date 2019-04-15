@@ -14,19 +14,27 @@ namespace GISTest
 
     public partial class LayerAttrib : Form
     {
+        
+        
         public LayerAttrib()
         {
             InitializeComponent();
+            
         }
 
         private void LayerAttrib_Load(object sender, EventArgs e)
         {
 
         }
+        
+        // 打开属性表时激活
 
-        private void ShowFeatureLayerAttrib(IFeatureLayer layer)
+        public void ShowFeatureLayerAttrib(IFeatureLayer layer)
         {
-
+            if (layer != null)
+            {
+                
+            }
         }
     }
 }

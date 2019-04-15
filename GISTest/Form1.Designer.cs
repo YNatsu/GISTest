@@ -28,27 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.axMapControl1 = new ESRI.ArcGIS.Controls.AxMapControl();
             this.axMapControl2 = new ESRI.ArcGIS.Controls.AxMapControl();
             this.axTOCControl1 = new ESRI.ArcGIS.Controls.AxTOCControl();
             this.axLicenseControl1 = new ESRI.ArcGIS.Controls.AxLicenseControl();
             this.axToolbarControl1 = new ESRI.ArcGIS.Controls.AxToolbarControl();
+            this.MapMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.shapeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.LayerMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.打开属性表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.axMapControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axMapControl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axTOCControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axLicenseControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControl1)).BeginInit();
+            this.MapMenuStrip.SuspendLayout();
+            this.LayerMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // axMapControl1
             // 
-            this.axMapControl1.Location = new System.Drawing.Point(182, 47);
+            this.axMapControl1.Location = new System.Drawing.Point(182, 36);
             this.axMapControl1.Name = "axMapControl1";
             this.axMapControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axMapControl1.OcxState")));
-            this.axMapControl1.Size = new System.Drawing.Size(461, 437);
+            this.axMapControl1.Size = new System.Drawing.Size(461, 448);
             this.axMapControl1.TabIndex = 0;
-            
             this.axMapControl1.OnExtentUpdated += new ESRI.ArcGIS.Controls.IMapControlEvents2_Ax_OnExtentUpdatedEventHandler(this.axMapControl1_OnExtentUpdated);
             this.axMapControl1.OnMapReplaced += new ESRI.ArcGIS.Controls.IMapControlEvents2_Ax_OnMapReplacedEventHandler(this.axMapControl1_OnMapReplaced);
             // 
@@ -64,11 +70,12 @@
             // 
             // axTOCControl1
             // 
-            this.axTOCControl1.Location = new System.Drawing.Point(3, 47);
+            this.axTOCControl1.Location = new System.Drawing.Point(3, 36);
             this.axTOCControl1.Name = "axTOCControl1";
             this.axTOCControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTOCControl1.OcxState")));
-            this.axTOCControl1.Size = new System.Drawing.Size(173, 265);
+            this.axTOCControl1.Size = new System.Drawing.Size(173, 276);
             this.axTOCControl1.TabIndex = 2;
+            this.axTOCControl1.OnMouseDown += new ESRI.ArcGIS.Controls.ITOCControlEvents_Ax_OnMouseDownEventHandler(this.axTOCControl1_OnMouseDown);
             // 
             // axLicenseControl1
             // 
@@ -81,11 +88,39 @@
             // 
             // axToolbarControl1
             // 
-            this.axToolbarControl1.Location = new System.Drawing.Point(3, 13);
+            this.axToolbarControl1.Location = new System.Drawing.Point(-4, 2);
             this.axToolbarControl1.Name = "axToolbarControl1";
             this.axToolbarControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axToolbarControl1.OcxState")));
             this.axToolbarControl1.Size = new System.Drawing.Size(640, 28);
             this.axToolbarControl1.TabIndex = 4;
+            // 
+            // MapMenuStrip
+            // 
+            this.MapMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.shapeToolStripMenuItem});
+            this.MapMenuStrip.Name = "MapMenuStrip";
+            this.MapMenuStrip.Size = new System.Drawing.Size(161, 26);
+            // 
+            // shapeToolStripMenuItem
+            // 
+            this.shapeToolStripMenuItem.Name = "shapeToolStripMenuItem";
+            this.shapeToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.shapeToolStripMenuItem.Text = "添加Shape图层";
+            this.shapeToolStripMenuItem.Click += new System.EventHandler(this.AddShapeLayerItem_Click);
+            // 
+            // LayerMenuStrip
+            // 
+            this.LayerMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.打开属性表ToolStripMenuItem});
+            this.LayerMenuStrip.Name = "LayerMenuStrip";
+            this.LayerMenuStrip.Size = new System.Drawing.Size(153, 48);
+            // 
+            // 打开属性表ToolStripMenuItem
+            // 
+            this.打开属性表ToolStripMenuItem.Name = "打开属性表ToolStripMenuItem";
+            this.打开属性表ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.打开属性表ToolStripMenuItem.Text = "打开属性表";
+            this.打开属性表ToolStripMenuItem.Click += new System.EventHandler(this.OpenLayerAttribItem_Click);
             // 
             // Form1
             // 
@@ -105,6 +140,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.axTOCControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.axLicenseControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControl1)).EndInit();
+            this.MapMenuStrip.ResumeLayout(false);
+            this.LayerMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -116,6 +153,10 @@
         private ESRI.ArcGIS.Controls.AxTOCControl axTOCControl1;
         private ESRI.ArcGIS.Controls.AxLicenseControl axLicenseControl1;
         private ESRI.ArcGIS.Controls.AxToolbarControl axToolbarControl1;
+        private System.Windows.Forms.ContextMenuStrip MapMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem shapeToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip LayerMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem 打开属性表ToolStripMenuItem;
     }
 }
 
