@@ -23,19 +23,7 @@ using Path = System.IO.Path;
 namespace GISTest
 {
     public partial class Form1 : Form
-    {
-        //TOCControl控件变量
-        
-        private ITOCControl2 m_tocControl = null;
-
-        //TOCControl中Map菜单
-
-        private IToolbarMenu m_menuMap = null;
-
-        //TOCControl中图层菜单
-
-        private IToolbarMenu m_menuLayer = null;
-        
+    {       
         private ILayer HitLayer;
         
         private IMap HitMap;
@@ -52,6 +40,7 @@ namespace GISTest
         {
             MessageBox.Show(s);
         }
+        
         private void Form1_Load(object sender, EventArgs e)
         {
             ((IActiveViewEvents_Event) this.axMapControl1.Map).ItemAdded += this.OnItemAdded;
