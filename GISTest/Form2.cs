@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
+using ESRI.ArcGIS.DataSourcesFile;
 using ESRI.ArcGIS.Geodatabase;
+using ESRI.ArcGIS.Geometry;
 
 namespace GISTest
 {
@@ -151,10 +153,96 @@ namespace GISTest
                             DataRow featureRec = featureTable.NewRow();
 
                             int nFieldCount = feature.Fields.FieldCount;
+                            
+                            // 依次读取矢量要素的每一个字段值
+                            
+                            for (int i = 0; i < nFieldCount; i++)
+                            {
+                                switch (feature.Fields.Field[i].Type)
+                                {
+                                    case esriFieldType.esriFieldTypeOID:
+
+                                        featureRec[feature.Fields.Field[i].Name] = Convert.ToInt32(feature.Value[i]);
+                                        
+                                        break;
+                                    
+                                    case esriFieldType.esriFieldTypeGeometry:
+
+                                        featureRec[feature.Fields.Field[i].Name] = 
+                                            
+                                            feature.Shape.GeometryType.ToString();
+                                                                                        
+                                        break;
+                                    
+                                    case esriFieldType.esriFieldTypeInteger:
+                                        
+                                        featureRec[feature.Fields.Field[i].Name] = Convert.ToInt32(feature.Value[i]);
+                                        
+                                        break;
+                                    
+                                    case esriFieldType.esriFieldTypeString:
+
+                                        featureRec[feature.Fields.Field[i].Name] =
+
+                                            feature.Value[i].ToString();
+                                        
+                                        break;
+                                    
+                                    case esriFieldType.esriFieldTypeDouble:
+
+                                        featureRec[feature.Fields.Field[i].Name] =
+
+                                            Convert.ToDouble(feature.Value[i]);
+                                        
+                                        break;
+                                }     
+                            }
+
+                            featureTable.Rows.Add(featureRec);
+
+                            feature = cursor.NextFeature();
                         }
+                        
+                        if(drawshape)
+                            
+                            axMapControl1.Refresh(esriViewDrawPhase.esriViewGeoSelection, Type.Missing, Type.Missing);
                     }
                 }
             }
         }
+
+        private void btAttriSearch_Click(object sender, EventArgs e)
+        {
+            IFeatureLayer featureLayer = axMapControl1.get_Layer(0) as IFeatureLayer;
+
+            if (featureLayer != null)
+            {
+                IQueryFilter filter = new QueryFilterClass();
+
+                filter.WhereClause = txtWhereClause.Text;
+                
+                ShowFeatures(featureLayer, filter, true);
+            }
+            
+            
+        }
+        
+        // 框选
+        
+        private void btBoxSearch_Click(object sender, EventArgs e)
+        {
+            IFeatureLayer featureLayer = axMapControl1.get_Layer(0) as IFeatureLayer;
+
+            if (featureLayer != null)
+            {
+                
+            }
+        }
+
+        private void axMapControl1_OnMouseDown(object sender, ESRI.ArcGIS.Controls.IMapControlEvents2_OnMouseDownEvent e)
+        {
+            
+        }
+
     }
 }

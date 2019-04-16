@@ -37,8 +37,8 @@
             this.btAttriSearch = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtStringTestValue = new System.Windows.Forms.TextBox();
+            this.txtWhereClause = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.添加测试字段ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除测试字段ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,6 +63,7 @@
             this.axMapControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axMapControl1.OcxState")));
             this.axMapControl1.Size = new System.Drawing.Size(307, 436);
             this.axMapControl1.TabIndex = 1;
+            this.axMapControl1.OnMouseDown += new ESRI.ArcGIS.Controls.IMapControlEvents2_Ax_OnMouseDownEventHandler(this.axMapControl1_OnMouseDown);
             // 
             // btModify
             // 
@@ -81,6 +82,7 @@
             this.btBoxSearch.TabIndex = 3;
             this.btBoxSearch.Text = "框选";
             this.btBoxSearch.UseVisualStyleBackColor = true;
+            this.btBoxSearch.Click += new System.EventHandler(this.btBoxSearch_Click);
             // 
             // btAttriSearch
             // 
@@ -90,6 +92,7 @@
             this.btAttriSearch.TabIndex = 4;
             this.btAttriSearch.Text = "查询";
             this.btAttriSearch.UseVisualStyleBackColor = true;
+            this.btAttriSearch.Click += new System.EventHandler(this.btAttriSearch_Click);
             // 
             // label1
             // 
@@ -109,19 +112,19 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "属性过滤条件：";
             // 
-            // textBox1
+            // txtStringTestValue
             // 
-            this.textBox1.Location = new System.Drawing.Point(99, 405);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(235, 21);
-            this.textBox1.TabIndex = 7;
+            this.txtStringTestValue.Location = new System.Drawing.Point(99, 405);
+            this.txtStringTestValue.Name = "txtStringTestValue";
+            this.txtStringTestValue.Size = new System.Drawing.Size(235, 21);
+            this.txtStringTestValue.TabIndex = 7;
             // 
-            // textBox2
+            // txtWhereClause
             // 
-            this.textBox2.Location = new System.Drawing.Point(99, 429);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(235, 21);
-            this.textBox2.TabIndex = 8;
+            this.txtWhereClause.Location = new System.Drawing.Point(99, 429);
+            this.txtWhereClause.Name = "txtWhereClause";
+            this.txtWhereClause.Size = new System.Drawing.Size(235, 21);
+            this.txtWhereClause.TabIndex = 8;
             // 
             // contextMenuStrip1
             // 
@@ -148,8 +151,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(821, 460);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtWhereClause);
+            this.Controls.Add(this.txtStringTestValue);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btAttriSearch);
@@ -177,8 +180,8 @@
         private System.Windows.Forms.Button btAttriSearch;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtStringTestValue;
+        private System.Windows.Forms.TextBox txtWhereClause;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 添加测试字段ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 删除测试字段ToolStripMenuItem;

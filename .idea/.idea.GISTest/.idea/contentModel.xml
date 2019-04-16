@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\ynats\.Rider2018.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\ynats\.Rider2018.2\system\resharper-host\local\Transient\ReSharperHost\v182\SolutionCaches\_GISTest.1218836594.00" t="ExcludeRecursive" />
-    <e p="C:\Users\ynats\RiderProjects\GISTest" t="IncludeFlat">
+    <e p="C:\Users\ynats\.Rider2018.2\system\resharper-host\local\Transient\ReSharperHost\v182\SolutionCaches\_GISTest.-644955193.00" t="ExcludeRecursive" />
+    <e p="C:\Users\ynats\Documents\Visual Studio 2012\Projects\GISTest" t="IncludeFlat">
       <e p="GISTest" t="IncludeRecursive">
         <e p="App.config" t="Include" />
         <e p="bin" t="ExcludeRecursive" />

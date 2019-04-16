@@ -286,6 +286,7 @@ namespace GISTest
                 IWorkspaceFactory wsFactory = new ShapefileWorkspaceFactory();
 
                 // ESRI.ArcGIS.Geodatabase.IWorkspace
+                
                 // 调用 OpenFromFile 通过目录名方法打开 Shapefile 数据库
                 
                 IWorkspace shpWorkspace = wsFactory.OpenFromFile(strWorkspace, 0);
