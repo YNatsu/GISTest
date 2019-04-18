@@ -47,55 +47,55 @@ namespace GISTest
 
                 for (int i = 0; i < nFieldCount; i++)
                 {
-                    DataColumn field = new DataColumn {ColumnName = fcLayer_IFeatureClass.Fields.Field[i].Name};
+                    DataColumn field_DataColumn = new DataColumn {ColumnName = fcLayer_IFeatureClass.Fields.Field[i].Name};
                     
                     switch (fcLayer_IFeatureClass.Fields.Field[i].Type)
                     {
                           case  esriFieldType.esriFieldTypeOID:
                               
-                              field.DataType = Type.GetType("System.Int32");
+                              field_DataColumn.DataType = Type.GetType("System.Int32");
                               
                               break;
                               
                           
                           case esriFieldType.esriFieldTypeGeometry:
 
-                              field.DataType = Type.GetType("System.String");
+                              field_DataColumn.DataType = Type.GetType("System.String");
                               
                               break;
                           
                           case esriFieldType.esriFieldTypeInteger:
                               
-                              field.DataType = Type.GetType("System.Int32");
+                              field_DataColumn.DataType = Type.GetType("System.Int32");
                               
                               break;
                           
                           case esriFieldType.esriFieldTypeSingle:
                               
-                              field.DataType = Type.GetType("System.Int32");
+                              field_DataColumn.DataType = Type.GetType("System.Int32");
                               
                               break;
                           
                           case esriFieldType.esriFieldTypeSmallInteger:
                               
-                              field.DataType = Type.GetType("System.Int32");
+                              field_DataColumn.DataType = Type.GetType("System.Int32");
                               
                               break;
                           
                           case esriFieldType.esriFieldTypeString:
                               
-                              field.DataType = Type.GetType("System.String");
+                              field_DataColumn.DataType = Type.GetType("System.String");
                               
                               break;
                           
                           case esriFieldType.esriFieldTypeDouble:
                               
-                              field.DataType = Type.GetType("System.Double");
+                              field_DataColumn.DataType = Type.GetType("System.Double");
                               
                               break;
                     }
 
-                    featureTable_DataTable.Columns.Add(field);
+                    featureTable_DataTable.Columns.Add(field_DataColumn);
                 }
 
                 dataGridView1.DataSource = featureTable_DataTable;
