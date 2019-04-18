@@ -132,18 +132,18 @@
             this.添加测试字段ToolStripMenuItem,
             this.删除测试字段ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(149, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 70);
             // 
             // 添加测试字段ToolStripMenuItem
             // 
             this.添加测试字段ToolStripMenuItem.Name = "添加测试字段ToolStripMenuItem";
-            this.添加测试字段ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.添加测试字段ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.添加测试字段ToolStripMenuItem.Text = "添加测试字段";
             // 
             // 删除测试字段ToolStripMenuItem
             // 
             this.删除测试字段ToolStripMenuItem.Name = "删除测试字段ToolStripMenuItem";
-            this.删除测试字段ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.删除测试字段ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.删除测试字段ToolStripMenuItem.Text = "删除测试字段";
             // 
             // LayerAttrib

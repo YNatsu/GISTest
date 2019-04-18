@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Data;
 using System.Windows.Forms;
 using ESRI.ArcGIS.DataSourcesFile;
@@ -11,12 +11,13 @@ namespace GISTest
 
     public partial class LayerAttrib : Form
     {
-        
+        private int nSpatialSearchMode;
         
         public LayerAttrib()
         {
             InitializeComponent();
-            
+
+            nSpatialSearchMode = 0;
         }
 
         private void LayerAttrib_Load(object sender, EventArgs e)
@@ -26,28 +27,29 @@ namespace GISTest
         
         // 打开属性表时激活
 
-        public void ShowFeatureLayerAttrib(IFeatureLayer layer)
+        public void ShowFeatureLayerAttrib(IFeatureLayer layer_IFeatureLayer)
         {
-            if (layer != null)
+            if (layer_IFeatureLayer != null)
             {
                 axMapControl1.ClearLayers();
-                axMapControl1.AddLayer(layer);
                 
-                DataTable  featureTable = new DataTable();
+                axMapControl1.AddLayer(layer_IFeatureLayer);
+                
+                DataTable  featureTable_DataTable = new DataTable();
                 
                 // 矢量要素图层包含的要素类
                 
-                IFeatureClass fcLayer = layer.FeatureClass;
+                IFeatureClass fcLayer_IFeatureClass = layer_IFeatureLayer.FeatureClass;
                 
                 // 要素类中包含的属性字段总数
 
-                int nFieldCount = fcLayer.Fields.FieldCount;
+                int nFieldCount = fcLayer_IFeatureClass.Fields.FieldCount;
 
                 for (int i = 0; i < nFieldCount; i++)
                 {
-                    DataColumn field = new DataColumn {ColumnName = fcLayer.Fields.Field[i].Name};
+                    DataColumn field = new DataColumn {ColumnName = fcLayer_IFeatureClass.Fields.Field[i].Name};
                     
-                    switch (fcLayer.Fields.Field[i].Type)
+                    switch (fcLayer_IFeatureClass.Fields.Field[i].Type)
                     {
                           case  esriFieldType.esriFieldTypeOID:
                               
@@ -93,10 +95,10 @@ namespace GISTest
                               break;
                     }
 
-                    featureTable.Columns.Add(field);
+                    featureTable_DataTable.Columns.Add(field);
                 }
 
-                dataGridView1.DataSource = featureTable;
+                dataGridView1.DataSource = featureTable_DataTable;
                 
             }
 
@@ -235,13 +237,33 @@ namespace GISTest
 
             if (featureLayer != null)
             {
-                
+                nSpatialSearchMode = 1;
             }
         }
 
         private void axMapControl1_OnMouseDown(object sender, ESRI.ArcGIS.Controls.IMapControlEvents2_OnMouseDownEvent e)
         {
-            
+            switch (nSpatialSearchMode)
+            {
+                  case  1:
+                      
+                      IEnvelope box = axMapControl1.TrackRectangle();
+                       
+                      IFeatureLayer featureLayer = axMapControl1.get_Layer(0) as IFeatureLayer;
+                      
+                      if (featureLayer != null)
+                      {
+                          ISpatialFilter filter = new SpatialFilterClass();
+
+                          filter.WhereClause = txtWhereClause.Text;
+
+                          filter.Geometry = box;
+                          
+                          ShowFeatures(featureLayer, filter, true);
+                      }
+                      
+                      break;
+            } 
         }
 
     }
