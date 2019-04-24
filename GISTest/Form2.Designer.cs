@@ -50,11 +50,13 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridView1.Location = new System.Drawing.Point(12, 12);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 23;
             this.dataGridView1.Size = new System.Drawing.Size(484, 385);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseUp);
             // 
             // axMapControl1
             // 
@@ -132,19 +134,21 @@
             this.添加测试字段ToolStripMenuItem,
             this.删除测试字段ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(149, 48);
             // 
             // 添加测试字段ToolStripMenuItem
             // 
             this.添加测试字段ToolStripMenuItem.Name = "添加测试字段ToolStripMenuItem";
-            this.添加测试字段ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.添加测试字段ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.添加测试字段ToolStripMenuItem.Text = "添加测试字段";
+            this.添加测试字段ToolStripMenuItem.Click += new System.EventHandler(this.AddAttriToolStripMenuItem_Click);
             // 
             // 删除测试字段ToolStripMenuItem
             // 
             this.删除测试字段ToolStripMenuItem.Name = "删除测试字段ToolStripMenuItem";
-            this.删除测试字段ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.删除测试字段ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.删除测试字段ToolStripMenuItem.Text = "删除测试字段";
+            this.删除测试字段ToolStripMenuItem.Click += new System.EventHandler(this.DeleteAttriToolStripMenuItem_Click);
             // 
             // LayerAttrib
             // 
