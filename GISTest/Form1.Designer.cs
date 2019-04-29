@@ -113,12 +113,12 @@
             this.LayerMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.打开属性表ToolStripMenuItem});
             this.LayerMenuStrip.Name = "LayerMenuStrip";
-            this.LayerMenuStrip.Size = new System.Drawing.Size(153, 48);
+            this.LayerMenuStrip.Size = new System.Drawing.Size(137, 26);
             // 
             // 打开属性表ToolStripMenuItem
             // 
             this.打开属性表ToolStripMenuItem.Name = "打开属性表ToolStripMenuItem";
-            this.打开属性表ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.打开属性表ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.打开属性表ToolStripMenuItem.Text = "打开属性表";
             this.打开属性表ToolStripMenuItem.Click += new System.EventHandler(this.OpenLayerAttribItem_Click);
             // 

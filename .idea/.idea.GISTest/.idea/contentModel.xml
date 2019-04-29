@@ -13,6 +13,9 @@
         <e p="Form2.cs" t="Include" />
         <e p="Form2.Designer.cs" t="Include" />
         <e p="Form2.resx" t="Include" />
+        <e p="Form3.cs" t="Include" />
+        <e p="Form3.Designer.cs" t="Include" />
+        <e p="Form3.resx" t="Include" />
         <e p="GISTest.csproj" t="IncludeRecursive" />
         <e p="LayerVisibility.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive" />

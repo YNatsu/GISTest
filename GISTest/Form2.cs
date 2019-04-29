@@ -1,14 +1,18 @@
-﻿    using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Threading;
 using System.Windows.Forms;
 using ESRI.ArcGIS.DataSourcesFile;
 using ESRI.ArcGIS.Geodatabase;
 using ESRI.ArcGIS.Geometry;
+using Microsoft.VisualBasic;
+using ESRI.ArcGIS.Carto;
+using ESRI.ArcGIS.Display;
 
 namespace GISTest
 {
-    using ESRI.ArcGIS.Carto;
-
+    
     public partial class LayerAttrib : Form
     {
         private int nSpatialSearchMode;
@@ -312,17 +316,260 @@ namespace GISTest
                 
                 schemaLock.ChangeSchemaLock(esriSchemaLock.esriSharedSchemaLock);
             }
+            
+            ShowFeatures(featureLayer,null, true);
 
         }
 
         // 添加
+
+        public bool AddField(string fieldName, esriFieldType filedType, int fieldLength)
+        {
+            var featureLayer = axMapControl1.get_Layer(0) as IFeatureLayer;
+            
+            try
+            {
+                IFields pFields = featureLayer.FeatureClass.Fields;
+                
+                IFieldEdit pFieldEdit;
+ 
+                pFieldEdit = new FieldClass();
+                
+                if (fieldName.Length > 5)
+                    
+                    pFieldEdit.Name_2 = fieldName.Substring(0, 5);
+                else
+                    pFieldEdit.Name_2 = fieldName;
+                
+                pFieldEdit.Type_2 = filedType;
+                
+                pFieldEdit.Editable_2 = true;
+                
+                pFieldEdit.AliasName_2 = fieldName;
+                
+                pFieldEdit.Length_2 = fieldLength;
+                
+                ITable pTable = (ITable)featureLayer;
+                              
+                pTable.AddField(pFieldEdit);
+                
+                ShowFeatureLayerAttrib(featureLayer);
+                
+                return true;
+             
+            }
+ 
+ 
+            catch (Exception ex)
+            {
+                return false;
+            }
+            
+           
+        }
+     
         
         private void AddAttriToolStripMenuItem_Click(object sender, EventArgs e)
         {
+         
+            Form3 form3 = new Form3(AddField);   
+            
+            form3.Show();
+        }
+        
+        // 获得渲染属性名
 
+        private string fieldName;
+        
+        private void dataGridView1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+
+                DataGridView.HitTestInfo hitTestInfo = dataGridView1.HitTest(e.X, e.Y);
+
+                if (hitTestInfo.Type == DataGridViewHitTestType.ColumnHeader)
+                {
+                    renderStrip.Show(dataGridView1, e.X, e.Y);
+
+                    fieldName = dataGridView1.Columns[hitTestInfo.ColumnIndex].Name;
+
+                }
+                else
+                {
+                    contextMenuStrip1.Show(dataGridView1, e.X, e.Y);
+                }
+            }
         }
 
-       
+    
+        // 唯一值渲染     
+        
+        // 先获取该字段上全部要素的属性值，然后再剔除重复值
+        
+        private string[] GetUniqueValues(IFeatureLayer featureLayer, string fieldName)
+        {
+            if (featureLayer != null)
+            {
+                List<string> fieldValues = new List<string>();
+
+                IFeatureClass featureClass = featureLayer.FeatureClass;
+
+                int n = featureClass.FindField(fieldName);
+
+                if (n != -1)
+                {
+                    IFeatureCursor featureCursor = featureClass.Search(null, false);
+
+                    IFeature feature = featureCursor.NextFeature();
+
+                    while (feature != null)
+                    {
+                        fieldValues.Add(feature.get_Value(n).ToString());
+
+                        feature = featureCursor.NextFeature();
+                    }
+                    
+                    fieldValues.Sort();
+
+                    for (int i = 1; i < fieldValues.Count; i++)
+                    {
+                        if (fieldValues[i] == fieldValues[i-1])
+                        {
+                            fieldValues.RemoveAt(i);
+
+                            i--;
+                        }
+                    }
+
+                    return fieldValues.ToArray();
+                }
+
+               
+            }
+            
+            return null;
+        }
+        
+        private void RenderByUniqueValue(IFeatureLayer featureLayer, string fieldName)
+        {
+            string[] uniqueValues = GetUniqueValues(featureLayer, fieldName);
+
+            if (uniqueValues != null)
+            {
+                IUniqueValueRenderer uniqueValueRenderer = new UniqueValueRendererClass();
+
+                uniqueValueRenderer.FieldCount = 1;
+                
+                uniqueValueRenderer.set_Field(0, fieldName);
+
+                IFeatureClass featureClass = featureLayer.FeatureClass;
+
+                int n = featureClass.FindField(fieldName);
+
+                IField field = featureClass.Fields.Field[n];
+
+                if (field.Type == esriFieldType.esriFieldTypeString)
+                {
+                    // 如果实际字段值类型是字符串型
+                    
+                    // 则 UniqueValueRenderer 组件对象的字段类型设置为 true
+                    
+                    uniqueValueRenderer.set_FieldType(0, true);
+                }
+                else
+                {
+                    uniqueValueRenderer.set_FieldType(0, false);
+                }
+                
+                IRandomColorRamp randomColorRamp = new RandomColorRampClass();
+                
+                randomColorRamp.StartHue = 30;
+
+                randomColorRamp.EndHue = 50;
+
+                randomColorRamp.MinSaturation = 20;
+
+                randomColorRamp.MaxSaturation = 40;
+
+                randomColorRamp.MinValue = 0;
+
+                randomColorRamp.MaxValue = 100;
+
+                randomColorRamp.Size = uniqueValues.Length;
+
+                bool b;
+                
+                randomColorRamp.CreateRamp(out b);
+
+                if (b )
+                {
+                    for (int i = 0; i < uniqueValues.Length; i++)
+                    {
+                        ISymbol symbol = null;
+                        
+                        if (featureClass.ShapeType == esriGeometryType.esriGeometryPolygon)
+                        {
+                            symbol = new SimpleFillSymbolClass();
+
+                            (symbol as IFillSymbol).Outline.Width = 1.0;
+
+                            (symbol as IFillSymbol).Color = randomColorRamp.get_Color(i);
+                            
+                            uniqueValueRenderer.AddValue(uniqueValues[i], uniqueValues[i], symbol);
+                            
+                            
+                        }
+                        else if (featureClass.ShapeType == esriGeometryType.esriGeometryPolyline)
+                        {
+                            symbol = new SimpleLineSymbolClass();
+                            
+                            (symbol as ILineSymbol).Width = 1.0;
+
+                            (symbol as ILineSymbol).Color = randomColorRamp.get_Color(i);
+                            
+                            uniqueValueRenderer.AddValue(uniqueValues[i], uniqueValues[i], symbol);
+
+                        }
+                    }
+                }
+                IGeoFeatureLayer geoFeatureLayer = featureLayer as IGeoFeatureLayer;
+
+                if (geoFeatureLayer != null)
+                {
+                    geoFeatureLayer.Renderer = uniqueValueRenderer as IFeatureRenderer;
+
+                    IActiveView activeView = axMapControl1.ActiveView;
+                    
+                    activeView.ContentsChanged();
+                    
+                    activeView.PartialRefresh(esriViewDrawPhase.esriViewGeography, null, null);
+                }
+            }
+        }
+             
+        private void UniqueValueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+            IFeatureLayer featureLayer = axMapControl1.get_Layer(0) as IFeatureLayer;
+            
+            RenderByUniqueValue(featureLayer, fieldName);
+
+        }
+        
+        // 分级渲染
+
+        private void RenderByClass()
+        {
+            
+        }
+        
+        private void ClassValueToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            MessageBox.Show("class" );
+        }
+
+        
 
     }
 }

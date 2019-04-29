@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LayerAttrib));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.添加测试字段ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.删除测试字段ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.axMapControl1 = new ESRI.ArcGIS.Controls.AxMapControl();
             this.btModify = new System.Windows.Forms.Button();
             this.btBoxSearch = new System.Windows.Forms.Button();
@@ -39,24 +42,47 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtStringTestValue = new System.Windows.Forms.TextBox();
             this.txtWhereClause = new System.Windows.Forms.TextBox();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.添加测试字段ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.删除测试字段ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.renderStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.唯一值渲染ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.分级渲染ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.axMapControl1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axMapControl1)).BeginInit();
+            this.renderStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 12);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 27);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(484, 385);
+            this.dataGridView1.Size = new System.Drawing.Size(484, 370);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseUp);
+            this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.添加测试字段ToolStripMenuItem,
+            this.删除测试字段ToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(149, 48);
+            // 
+            // 添加测试字段ToolStripMenuItem
+            // 
+            this.添加测试字段ToolStripMenuItem.Name = "添加测试字段ToolStripMenuItem";
+            this.添加测试字段ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.添加测试字段ToolStripMenuItem.Text = "添加测试字段";
+            this.添加测试字段ToolStripMenuItem.Click += new System.EventHandler(this.AddAttriToolStripMenuItem_Click);
+            // 
+            // 删除测试字段ToolStripMenuItem
+            // 
+            this.删除测试字段ToolStripMenuItem.Name = "删除测试字段ToolStripMenuItem";
+            this.删除测试字段ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.删除测试字段ToolStripMenuItem.Text = "删除测试字段";
+            this.删除测试字段ToolStripMenuItem.Click += new System.EventHandler(this.DeleteAttriToolStripMenuItem_Click);
             // 
             // axMapControl1
             // 
@@ -128,27 +154,27 @@
             this.txtWhereClause.Size = new System.Drawing.Size(235, 21);
             this.txtWhereClause.TabIndex = 8;
             // 
-            // contextMenuStrip1
+            // renderStrip
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.添加测试字段ToolStripMenuItem,
-            this.删除测试字段ToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(149, 48);
+            this.renderStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.唯一值渲染ToolStripMenuItem,
+            this.分级渲染ToolStripMenuItem});
+            this.renderStrip.Name = "renderStrip";
+            this.renderStrip.Size = new System.Drawing.Size(153, 70);
             // 
-            // 添加测试字段ToolStripMenuItem
+            // 唯一值渲染ToolStripMenuItem
             // 
-            this.添加测试字段ToolStripMenuItem.Name = "添加测试字段ToolStripMenuItem";
-            this.添加测试字段ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.添加测试字段ToolStripMenuItem.Text = "添加测试字段";
-            this.添加测试字段ToolStripMenuItem.Click += new System.EventHandler(this.AddAttriToolStripMenuItem_Click);
+            this.唯一值渲染ToolStripMenuItem.Name = "唯一值渲染ToolStripMenuItem";
+            this.唯一值渲染ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.唯一值渲染ToolStripMenuItem.Text = "唯一值渲染";
+            this.唯一值渲染ToolStripMenuItem.Click += new System.EventHandler(this.UniqueValueToolStripMenuItem_Click);
             // 
-            // 删除测试字段ToolStripMenuItem
+            // 分级渲染ToolStripMenuItem
             // 
-            this.删除测试字段ToolStripMenuItem.Name = "删除测试字段ToolStripMenuItem";
-            this.删除测试字段ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.删除测试字段ToolStripMenuItem.Text = "删除测试字段";
-            this.删除测试字段ToolStripMenuItem.Click += new System.EventHandler(this.DeleteAttriToolStripMenuItem_Click);
+            this.分级渲染ToolStripMenuItem.Name = "分级渲染ToolStripMenuItem";
+            this.分级渲染ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.分级渲染ToolStripMenuItem.Text = "分级渲染";
+            this.分级渲染ToolStripMenuItem.Click += new System.EventHandler(this.ClassValueToolStripMenuItem_Click_1);
             // 
             // LayerAttrib
             // 
@@ -168,8 +194,9 @@
             this.Text = "图层属性表";
             this.Load += new System.EventHandler(this.LayerAttrib_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.axMapControl1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.axMapControl1)).EndInit();
+            this.renderStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,7 +204,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        public System.Windows.Forms.DataGridView dataGridView1;
         private ESRI.ArcGIS.Controls.AxMapControl axMapControl1;
         private System.Windows.Forms.Button btModify;
         private System.Windows.Forms.Button btBoxSearch;
@@ -189,5 +216,8 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 添加测试字段ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 删除测试字段ToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip renderStrip;
+        private System.Windows.Forms.ToolStripMenuItem 唯一值渲染ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 分级渲染ToolStripMenuItem;
     }
 }
