@@ -23,3 +23,4 @@ C:\Users\ynats\RiderProjects\GISTest\GISTest\obj\Debug\GISTest.LayerAttrib.resou
 C:\Users\ynats\RiderProjects\GISTest\GISTest\obj\Debug\GISTest.Properties.Resources.resources
 C:\Users\ynats\RiderProjects\GISTest\GISTest\obj\Debug\GISTest.csproj.GenerateResource.Cache
 C:\Users\ynats\RiderProjects\GISTest\GISTest\obj\Debug\GISTest.Form3.resources
+C:\Users\ynats\RiderProjects\GISTest\GISTest\obj\Debug\GISTest.Form4.resources

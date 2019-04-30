@@ -1,27 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Threading;
+using System.Globalization;
 using System.Windows.Forms;
-using ESRI.ArcGIS.DataSourcesFile;
 using ESRI.ArcGIS.Geodatabase;
 using ESRI.ArcGIS.Geometry;
-using Microsoft.VisualBasic;
 using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.Display;
+using ESRI.ArcGIS.esriSystem;
 
 namespace GISTest
 {
     
     public partial class LayerAttrib : Form
     {
-        private int nSpatialSearchMode;
+        private int _nSpatialSearchMode;
         
         public LayerAttrib()
         {
             InitializeComponent();
 
-            nSpatialSearchMode = 0;
+            _nSpatialSearchMode = 0;
         }
 
         private void LayerAttrib_Load(object sender, EventArgs e)
@@ -31,78 +30,78 @@ namespace GISTest
         
         // 打开属性表时激活
 
-        public void ShowFeatureLayerAttrib(IFeatureLayer layer_IFeatureLayer)
+        public void ShowFeatureLayerAttrib(IFeatureLayer layerIFeatureLayer)
         {
-            if (layer_IFeatureLayer != null)
+            if (layerIFeatureLayer != null)
             {
                 axMapControl1.ClearLayers();
                 
-                axMapControl1.AddLayer(layer_IFeatureLayer);
+                axMapControl1.AddLayer(layerIFeatureLayer);
                 
-                DataTable  featureTable_DataTable = new DataTable();
+                DataTable  featureTableDataTable = new DataTable();
                 
                 // 矢量要素图层包含的要素类
                 
-                IFeatureClass fcLayer_IFeatureClass = layer_IFeatureLayer.FeatureClass;
+                IFeatureClass fcLayerIFeatureClass = layerIFeatureLayer.FeatureClass;
                 
                 // 要素类中包含的属性字段总数
 
-                int nFieldCount = fcLayer_IFeatureClass.Fields.FieldCount;
+                int nFieldCount = fcLayerIFeatureClass.Fields.FieldCount;
 
                 for (int i = 0; i < nFieldCount; i++)
                 {
-                    DataColumn field_DataColumn = new DataColumn {ColumnName = fcLayer_IFeatureClass.Fields.Field[i].Name};
+                    DataColumn fieldDataColumn = new DataColumn {ColumnName = fcLayerIFeatureClass.Fields.Field[i].Name};
                     
-                    switch (fcLayer_IFeatureClass.Fields.Field[i].Type)
+                    switch (fcLayerIFeatureClass.Fields.Field[i].Type)
                     {
                           case  esriFieldType.esriFieldTypeOID:
                               
-                              field_DataColumn.DataType = Type.GetType("System.Int32");
+                              fieldDataColumn.DataType = Type.GetType("System.Int32");
                               
                               break;
                               
                           
                           case esriFieldType.esriFieldTypeGeometry:
 
-                              field_DataColumn.DataType = Type.GetType("System.String");
+                              fieldDataColumn.DataType = Type.GetType("System.String");
                               
                               break;
                           
                           case esriFieldType.esriFieldTypeInteger:
                               
-                              field_DataColumn.DataType = Type.GetType("System.Int32");
+                              fieldDataColumn.DataType = Type.GetType("System.Int32");
                               
                               break;
                           
                           case esriFieldType.esriFieldTypeSingle:
                               
-                              field_DataColumn.DataType = Type.GetType("System.Int32");
+                              fieldDataColumn.DataType = Type.GetType("System.Int32");
                               
                               break;
                           
                           case esriFieldType.esriFieldTypeSmallInteger:
                               
-                              field_DataColumn.DataType = Type.GetType("System.Int32");
+                              fieldDataColumn.DataType = Type.GetType("System.Int32");
                               
                               break;
                           
                           case esriFieldType.esriFieldTypeString:
                               
-                              field_DataColumn.DataType = Type.GetType("System.String");
+                              fieldDataColumn.DataType = Type.GetType("System.String");
                               
                               break;
                           
                           case esriFieldType.esriFieldTypeDouble:
                               
-                              field_DataColumn.DataType = Type.GetType("System.Double");
+                              fieldDataColumn.DataType = Type.GetType("System.Double");
                               
                               break;
                     }
 
-                    featureTable_DataTable.Columns.Add(field_DataColumn);
+                    featureTableDataTable.Columns.Add(fieldDataColumn);
                 }
 
-                dataGridView1.DataSource = featureTable_DataTable;
+                dataGridView1.DataSource = featureTableDataTable;
                 
             }
 
@@ -112,33 +111,33 @@ namespace GISTest
             }
         }
 
-        public void ShowFeatures(IFeatureLayer featureLayer_IFeatureLayer, IQueryFilter condition_IQueryFilter, bool drawshape)
+        private void ShowFeatures(IFeatureLayer featureLayerIFeatureLayer, IQueryFilter conditionIQueryFilter, bool drawshape)
         {
             
-            if (featureLayer_IFeatureLayer != null)
+            if (featureLayerIFeatureLayer != null)
             {
                 // 矢量要素图层关联的要素类
                 
                 // IFeatureClass => IFeatureLayer.FeatureClass
                 
-                IFeatureClass featureClass_IFeatureClass = featureLayer_IFeatureLayer.FeatureClass;
+                IFeatureClass featureClassIFeatureClass = featureLayerIFeatureLayer.FeatureClass;
                 
                 // IFeatureCursor 变量用于获取查询结果
                 
                 // IFeatureCursor => IFeatureClass.Search(...)
                 
-                IFeatureCursor cursor_IFeatureCursor;
+                IFeatureCursor cursorIFeatureCursor;
 
                 try
                 {
-                    cursor_IFeatureCursor = featureClass_IFeatureClass.Search(condition_IQueryFilter, false);
+                    cursorIFeatureCursor = featureClassIFeatureClass.Search(conditionIQueryFilter, false);
                 }
                 catch (Exception)
                 {
-                    cursor_IFeatureCursor = null;
+                    cursorIFeatureCursor = null;
                 }
 
-                if (cursor_IFeatureCursor != null)
+                if (cursorIFeatureCursor != null)
                 {
                     axMapControl1.Refresh(
                         esriViewDrawPhase.esriViewGeoSelection, Type.Missing, Type.Missing
@@ -146,76 +145,76 @@ namespace GISTest
                     
                     // IFeatureSelection =>  IFeatureLayer
                     
-                    IFeatureSelection featureSelection_IFeatureSelection = featureLayer_IFeatureLayer as IFeatureSelection;
+                    IFeatureSelection featureSelectionIFeatureSelection = featureLayerIFeatureLayer as IFeatureSelection;
 
-                    if (featureSelection_IFeatureSelection != null)
+                    if (featureSelectionIFeatureSelection != null)
                     {
-                        featureSelection_IFeatureSelection.Clear();
+                        featureSelectionIFeatureSelection.Clear();
 
-                        DataTable featureTable_DataTable = (DataTable) dataGridView1.DataSource;
+                        DataTable featureTableDataTable = (DataTable) dataGridView1.DataSource;
 
-                        featureTable_DataTable.Rows.Clear();
+                        featureTableDataTable.Rows.Clear();
 
-                        IFeature feature_IFeature = cursor_IFeatureCursor.NextFeature();
+                        IFeature featureIFeature = cursorIFeatureCursor.NextFeature();
 
-                        while (feature_IFeature != null)
+                        while (featureIFeature != null)
                         {
                             if (drawshape)
                             {
-                                featureSelection_IFeatureSelection.Add(feature_IFeature);
+                                featureSelectionIFeatureSelection.Add(featureIFeature);
                             }
 
-                            DataRow featureRec_DataRow = featureTable_DataTable.NewRow();
+                            DataRow featureRecDataRow = featureTableDataTable.NewRow();
 
-                            int nFieldCount = feature_IFeature.Fields.FieldCount;
+                            int nFieldCount = featureIFeature.Fields.FieldCount;
                             
                             // 依次读取矢量要素的每一个字段值
                             
                             for (int i = 0; i < nFieldCount; i++)
                             {
-                                switch (feature_IFeature.Fields.Field[i].Type)
+                                switch (featureIFeature.Fields.Field[i].Type)
                                 {
                                     case esriFieldType.esriFieldTypeOID:
 
-                                        featureRec_DataRow[feature_IFeature.Fields.Field[i].Name] = Convert.ToInt32(feature_IFeature.Value[i]);
+                                        featureRecDataRow[featureIFeature.Fields.Field[i].Name] = Convert.ToInt32(featureIFeature.Value[i]);
                                         
                                         break;
                                     
                                     case esriFieldType.esriFieldTypeGeometry:
 
-                                        featureRec_DataRow[feature_IFeature.Fields.Field[i].Name] = 
+                                        featureRecDataRow[featureIFeature.Fields.Field[i].Name] = 
                                             
-                                            feature_IFeature.Shape.GeometryType.ToString();
+                                            featureIFeature.Shape.GeometryType.ToString();
                                                                                         
                                         break;
                                     
                                     case esriFieldType.esriFieldTypeInteger:
                                         
-                                        featureRec_DataRow[feature_IFeature.Fields.Field[i].Name] = Convert.ToInt32(feature_IFeature.Value[i]);
+                                        featureRecDataRow[featureIFeature.Fields.Field[i].Name] = Convert.ToInt32(featureIFeature.Value[i]);
                                         
                                         break;
                                     
                                     case esriFieldType.esriFieldTypeString:
 
-                                        featureRec_DataRow[feature_IFeature.Fields.Field[i].Name] =
+                                        featureRecDataRow[featureIFeature.Fields.Field[i].Name] =
 
-                                            feature_IFeature.Value[i].ToString();
+                                            featureIFeature.Value[i].ToString();
                                         
                                         break;
                                     
                                     case esriFieldType.esriFieldTypeDouble:
 
-                                        featureRec_DataRow[feature_IFeature.Fields.Field[i].Name] =
+                                        featureRecDataRow[featureIFeature.Fields.Field[i].Name] =
 
-                                            Convert.ToDouble(feature_IFeature.Value[i]);
+                                            Convert.ToDouble(featureIFeature.Value[i]);
                                         
                                         break;
                                 }     
                             }
 
-                            featureTable_DataTable.Rows.Add(featureRec_DataRow);
+                            featureTableDataTable.Rows.Add(featureRecDataRow);
 
-                            feature_IFeature = cursor_IFeatureCursor.NextFeature();
+                            featureIFeature = cursorIFeatureCursor.NextFeature();
                         }
                         
                         if(drawshape)
@@ -252,13 +251,13 @@ namespace GISTest
 
             if (featureLayer != null)
             {
-                nSpatialSearchMode = 1;
+                _nSpatialSearchMode = 1;
             }
         }
 
         private void axMapControl1_OnMouseDown(object sender, ESRI.ArcGIS.Controls.IMapControlEvents2_OnMouseDownEvent e)
         {
-            switch (nSpatialSearchMode)
+            switch (_nSpatialSearchMode)
             {
                   case  1:
                       
@@ -285,38 +284,44 @@ namespace GISTest
         
         // 获取列索引
         
-        private int index = 0;
+        private int _index = 0;
         
         private void dataGridView1_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
         {
-            index = e.ColumnIndex;
+            _index = e.ColumnIndex;
         }
         
         // 删除
         
         private void DeleteAttriToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string fieldName = dataGridView1.Columns[index].Name;
+            string fieldName = dataGridView1.Columns[_index].Name;
 
             var featureLayer = axMapControl1.get_Layer(0) as IFeatureLayer;
 
-            var featureClass = featureLayer.FeatureClass;
-
-            int n = featureClass.FindField(fieldName);
-
-            if (n != -1)
+            if (featureLayer != null)
             {
-                ISchemaLock schemaLock = featureClass as ISchemaLock;
-                
-                schemaLock.ChangeSchemaLock(esriSchemaLock.esriExclusiveSchemaLock);
+                var featureClass = featureLayer.FeatureClass;
 
-                IField field = featureClass.Fields.Field[n];
-                
-                featureClass.DeleteField(field);
-                
-                schemaLock.ChangeSchemaLock(esriSchemaLock.esriSharedSchemaLock);
+                int n = featureClass.FindField(fieldName);
+
+                if (n != -1)
+                {
+                    ISchemaLock schemaLock = featureClass as ISchemaLock;
+
+                    if (schemaLock != null)
+                    {
+                        schemaLock.ChangeSchemaLock(esriSchemaLock.esriExclusiveSchemaLock);
+
+                        IField field = featureClass.Fields.Field[n];
+
+                        featureClass.DeleteField(field);
+
+                        schemaLock.ChangeSchemaLock(esriSchemaLock.esriSharedSchemaLock);
+                    }
+                }
             }
-            
+
             ShowFeatures(featureLayer,null, true);
 
         }
@@ -329,17 +334,14 @@ namespace GISTest
             
             try
             {
-                IFields pFields = featureLayer.FeatureClass.Fields;
+                if (featureLayer != null)
+                {
+                    IFields pFields = featureLayer.FeatureClass.Fields;
+                }
+
+                IFieldEdit pFieldEdit = new FieldClass();
                 
-                IFieldEdit pFieldEdit;
- 
-                pFieldEdit = new FieldClass();
-                
-                if (fieldName.Length > 5)
-                    
-                    pFieldEdit.Name_2 = fieldName.Substring(0, 5);
-                else
-                    pFieldEdit.Name_2 = fieldName;
+                pFieldEdit.Name_2 = fieldName.Length > 5 ? fieldName.Substring(0, 5) : fieldName;
                 
                 pFieldEdit.Type_2 = filedType;
                 
@@ -350,9 +352,9 @@ namespace GISTest
                 pFieldEdit.Length_2 = fieldLength;
                 
                 ITable pTable = (ITable)featureLayer;
-                              
-                pTable.AddField(pFieldEdit);
-                
+
+                if (pTable != null) pTable.AddField(pFieldEdit);
+
                 ShowFeatureLayerAttrib(featureLayer);
                 
                 return true;
@@ -362,6 +364,7 @@ namespace GISTest
  
             catch (Exception ex)
             {
+                MessageBox.Show(ex.ToString());
                 return false;
             }
             
@@ -379,7 +382,7 @@ namespace GISTest
         
         // 获得渲染属性名
 
-        private string fieldName;
+        private string _fieldName;
         
         private void dataGridView1_MouseDown(object sender, MouseEventArgs e)
         {
@@ -392,7 +395,7 @@ namespace GISTest
                 {
                     renderStrip.Show(dataGridView1, e.X, e.Y);
 
-                    fieldName = dataGridView1.Columns[hitTestInfo.ColumnIndex].Name;
+                    _fieldName = dataGridView1.Columns[hitTestInfo.ColumnIndex].Name;
 
                 }
                 else
@@ -425,7 +428,7 @@ namespace GISTest
 
                     while (feature != null)
                     {
-                        fieldValues.Add(feature.get_Value(n).ToString());
+                        fieldValues.Add(feature.Value[n].ToString());
 
                         feature = featureCursor.NextFeature();
                     }
@@ -461,7 +464,7 @@ namespace GISTest
 
                 uniqueValueRenderer.FieldCount = 1;
                 
-                uniqueValueRenderer.set_Field(0, fieldName);
+                uniqueValueRenderer.Field[0] = fieldName;
 
                 IFeatureClass featureClass = featureLayer.FeatureClass;
 
@@ -553,23 +556,164 @@ namespace GISTest
             
             IFeatureLayer featureLayer = axMapControl1.get_Layer(0) as IFeatureLayer;
             
-            RenderByUniqueValue(featureLayer, fieldName);
+            RenderByUniqueValue(featureLayer, _fieldName);
 
         }
         
         // 分级渲染
 
-        private void RenderByClass()
+        private void RenderByClass(IFeatureLayer featureLayer, string fieldName, int nBreaks)
         {
+            if (featureLayer != null)
+            {
+                IFeatureClass featureClass = featureLayer.FeatureClass;
+
+                int n = featureClass.FindField(fieldName);
+
+                var type = featureClass.Fields.Field[n].Type;
+
+                if (!(type == esriFieldType.esriFieldTypeDouble || type == esriFieldType.esriFieldTypeInteger))
+                {
+                    MessageBox.Show("The type of field do not belong to int or double !");
+                    
+                    return;
+                }
+                
+                if (n != -1 && featureClass.Fields.Field[n].Type == esriFieldType.esriFieldTypeDouble )
+                {
+                    IClassBreaksRenderer classBreaksRenderer = new ClassBreaksRendererClass();
+
+                    classBreaksRenderer.Field = fieldName;
+                    
+                    ITableHistogram histogram = new BasicTableHistogramClass();
+
+                    histogram.Field = fieldName;
+                    
+                    histogram.Table = featureClass as ITable;
+
+                    object dbArray, nArray;
+
+                    (histogram as IBasicHistogram).GetHistogram(out dbArray, out nArray);
+
+                    double[] dataArray = dbArray as double[];
+
+                    int[] freqArray = nArray as int[];
+                    
+                    // 分级方式
+                    
+                    IClassifyGEN classifyGen = new EqualIntervalClass();
+                    
+                    classifyGen.Classify(dataArray, freqArray, nBreaks);
+
+                    classBreaksRenderer.BreakCount = nBreaks;
+                    
+                    IAlgorithmicColorRamp algorithmicColorRamp = new AlgorithmicColorRampClass();
+
+                    algorithmicColorRamp.Algorithm = esriColorRampAlgorithm.esriCIELabAlgorithm;
+
+                    IRgbColor fromColor = new RgbColorClass();
+
+                    fromColor.Red = 255;
+                    
+                    fromColor.Green = 255;
+
+                    fromColor.Blue = 0;
+                    
+                    IRgbColor toColor = new RgbColorClass();
+
+                    toColor.Red = 255;
+
+                    toColor.Green = 0;
+
+                    toColor.Blue = 0;
+
+                    algorithmicColorRamp.FromColor = fromColor;
+
+                    algorithmicColorRamp.ToColor = toColor;
+                                      
+                    algorithmicColorRamp.Size = nBreaks;
+
+                    bool o;
+                    
+                    algorithmicColorRamp.CreateRamp(out o);
+
+                    if (o)
+                    {
+                        double[] breaks = classifyGen.ClassBreaks as double[];
+
+                        if (breaks != null)
+                        {
+                            classBreaksRenderer.MinimumBreak = breaks[0];
+
+                            for (int i = 0; i < classBreaksRenderer.BreakCount; i++)
+                            {
+                                classBreaksRenderer.Break[i] = breaks[i];
+
+                                classBreaksRenderer.Label[i] =  breaks[i].ToString(CultureInfo.InvariantCulture) + "-" + breaks[i + 1].ToString();
+
+                                ISymbol symbol;
+
+                                if (featureClass.ShapeType == esriGeometryType.esriGeometryPolygon)
+                                {
+                                    symbol = new SimpleFillSymbolClass();
+
+                                    (symbol as IFillSymbol).Outline.Width = 1.0;
+
+                                    (symbol as IFillSymbol).Color = algorithmicColorRamp.Color[i];
+
+                                    classBreaksRenderer.Symbol[i] = symbol;
+                                }
+                                else if (featureClass.ShapeType == esriGeometryType.esriGeometryPolyline)
+                                {
+                                    symbol = new SimpleLineSymbolClass();
+
+                                    (symbol as ILineSymbol).Width = 1.0;
+
+                                    (symbol as ILineSymbol).Color = algorithmicColorRamp.Color[i];
+
+                                    classBreaksRenderer.Symbol[i] = symbol;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("The ShapeType of this do not belong to Polygon or Polyline");
+                                }
+                            }
+                        }
+                    }
+                    
+                    // 6.4
+                    
+                    IGeoFeatureLayer geoFeatureLayer = featureLayer as IGeoFeatureLayer;
+
+                    if (geoFeatureLayer != null)
+                    {
+                        geoFeatureLayer.Renderer = classBreaksRenderer as IFeatureRenderer;
+
+                        IActiveView activeView = axMapControl1.ActiveView;
+                        
+                        activeView.ContentsChanged();
+                        
+                        activeView.PartialRefresh(esriViewDrawPhase.esriViewGeography, null, null);
+                    }
+                }
+            }
+        }
+
+        private void RenderClass(int n)
+        {
+            IFeatureLayer featureLayer = axMapControl1.get_Layer(0) as IFeatureLayer;
             
+            RenderByClass(featureLayer, _fieldName, n);
         }
         
         private void ClassValueToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            MessageBox.Show("class" );
+        
+            Form4 form4 = new Form4(RenderClass);
+          
+            form4.Show();
         }
 
-        
 
     }
 }
