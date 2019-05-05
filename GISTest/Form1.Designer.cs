@@ -39,6 +39,7 @@
             this.shapeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LayerMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.打开属性表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.关闭图层ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.axMapControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axMapControl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axTOCControl1)).BeginInit();
@@ -111,16 +112,24 @@
             // LayerMenuStrip
             // 
             this.LayerMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.打开属性表ToolStripMenuItem});
+            this.打开属性表ToolStripMenuItem,
+            this.关闭图层ToolStripMenuItem});
             this.LayerMenuStrip.Name = "LayerMenuStrip";
-            this.LayerMenuStrip.Size = new System.Drawing.Size(137, 26);
+            this.LayerMenuStrip.Size = new System.Drawing.Size(153, 70);
             // 
             // 打开属性表ToolStripMenuItem
             // 
             this.打开属性表ToolStripMenuItem.Name = "打开属性表ToolStripMenuItem";
-            this.打开属性表ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.打开属性表ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.打开属性表ToolStripMenuItem.Text = "打开属性表";
             this.打开属性表ToolStripMenuItem.Click += new System.EventHandler(this.OpenLayerAttribItem_Click);
+            // 
+            // 关闭图层ToolStripMenuItem
+            // 
+            this.关闭图层ToolStripMenuItem.Name = "关闭图层ToolStripMenuItem";
+            this.关闭图层ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.关闭图层ToolStripMenuItem.Text = "关闭图层";
+            this.关闭图层ToolStripMenuItem.Click += new System.EventHandler(this.关闭图层ToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -157,6 +166,7 @@
         private System.Windows.Forms.ToolStripMenuItem shapeToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip LayerMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem 打开属性表ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 关闭图层ToolStripMenuItem;
     }
 }
 

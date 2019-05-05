@@ -351,5 +351,12 @@ namespace GISTest
 
             HitLayer_ILayer = null;
         }
+
+        private void 关闭图层ToolStripMenuItem_Click(Object sender, EventArgs e)
+        {
+            axMapControl1.Map.DeleteLayer(HitLayer_ILayer);
+            
+            axMapControl2.Map.DeleteLayer(HitLayer_ILayer);
+        }
     }
 }

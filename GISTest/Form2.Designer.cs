@@ -45,6 +45,7 @@
             this.renderStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.唯一值渲染ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.分级渲染ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axMapControl1)).BeginInit();
@@ -160,27 +161,38 @@
             this.唯一值渲染ToolStripMenuItem,
             this.分级渲染ToolStripMenuItem});
             this.renderStrip.Name = "renderStrip";
-            this.renderStrip.Size = new System.Drawing.Size(153, 70);
+            this.renderStrip.Size = new System.Drawing.Size(137, 48);
             // 
             // 唯一值渲染ToolStripMenuItem
             // 
             this.唯一值渲染ToolStripMenuItem.Name = "唯一值渲染ToolStripMenuItem";
-            this.唯一值渲染ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.唯一值渲染ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.唯一值渲染ToolStripMenuItem.Text = "唯一值渲染";
             this.唯一值渲染ToolStripMenuItem.Click += new System.EventHandler(this.UniqueValueToolStripMenuItem_Click);
             // 
             // 分级渲染ToolStripMenuItem
             // 
             this.分级渲染ToolStripMenuItem.Name = "分级渲染ToolStripMenuItem";
-            this.分级渲染ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.分级渲染ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.分级渲染ToolStripMenuItem.Text = "分级渲染";
             this.分级渲染ToolStripMenuItem.Click += new System.EventHandler(this.ClassValueToolStripMenuItem_Click_1);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(422, 403);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "取消框选";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // LayerAttrib
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(821, 460);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.txtWhereClause);
             this.Controls.Add(this.txtStringTestValue);
             this.Controls.Add(this.label2);
@@ -219,5 +231,6 @@
         private System.Windows.Forms.ContextMenuStrip renderStrip;
         private System.Windows.Forms.ToolStripMenuItem 唯一值渲染ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 分级渲染ToolStripMenuItem;
+        private System.Windows.Forms.Button button1;
     }
 }

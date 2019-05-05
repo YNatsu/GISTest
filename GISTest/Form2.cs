@@ -293,6 +293,7 @@ namespace GISTest
         
         // 删除
         
+     
         private void DeleteAttriToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string fieldName = dataGridView1.Columns[_index].Name;
@@ -301,6 +302,7 @@ namespace GISTest
 
             if (featureLayer != null)
             {
+
                 var featureClass = featureLayer.FeatureClass;
 
                 int n = featureClass.FindField(fieldName);
@@ -320,10 +322,14 @@ namespace GISTest
                         schemaLock.ChangeSchemaLock(esriSchemaLock.esriSharedSchemaLock);
                     }
                 }
+                
+                
             }
 
-            ShowFeatures(featureLayer,null, true);
-
+            ShowFeatureLayerAttrib(featureLayer);
+            
+            ShowFeatures(featureLayer, null, false);
+            
         }
 
         // 添加
@@ -712,6 +718,11 @@ namespace GISTest
             Form4 form4 = new Form4(RenderClass);
           
             form4.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            _nSpatialSearchMode = 0;
         }
 
 
